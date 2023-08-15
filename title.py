@@ -1,7 +1,31 @@
-class Title:
+from sqlalchemy import *
+from sqlalchemy.orm import *
+
+
+class Base(DeclarativeBase):
     '''
-    A class for titles.
+    A declarative base class for the use of storing custom objects in a database.
     '''
+    pass
+
+
+class Title(Base):
+    '''
+    A class for titles where instances can be stored as entities in the 'Title' table of a SQLAlchemy database.
+    '''
+
+    # Metadata for a library database
+    # Name of the table
+    __tablename__ = 'Title'
+    # Primary Key Column in the table with column name 'name'
+    name = Column(String, primary_key=True)
+    # Column in the table with column name 'publisher'
+    publisher = Column(String)
+    # Column in the table with column name 'genre'
+    genre = Column(String)
+    # Column in the table with column name 'quantity'
+    quantity = Column(Integer)
+
     def __init__(self, name, publisher, genre, quantity):
         '''
         :param name: names of the books
@@ -14,38 +38,11 @@ class Title:
         self.genre = genre
         self.quantity = quantity
 
-    @property
-    def quantity(self):
-        return self.quantity
-
-    @quantity.setter
-    def quantity(self, value):
-        self.quantity = value
-
-    @property
-    def name(self):
-        return self.name
-
-    @name.setter
-    def name(self, value):
-        self.name = value
-
-    @property
-    def genre(self):
-        return self.genre
-
-    @genre.setter
-    def genre(self, value):
-        self.genre = value
-
-    @property
-    def publisher(self):
-        return self.publisher
-
-    @publisher.setter
-    def publisher(self, value):
-        self.publisher = value
-
-
-
-
+    def __repr__(self):
+        '''
+        :return: a string representing the title
+        '''
+        return f'Title(name: {self.name}, ' \
+               f'publisher: {self.publisher}, ' \
+               f'genre: {self.genre}, ' \
+               f'quantity: {self.quantity})'
