@@ -13,5 +13,13 @@ tm.add_title(t2)
 # Show all the titles
 tm.show()
 
+# Amend a title
+tm.update_title("Good Morning", new_publisher="Bill Inc.")
+tm.update_title("Hello Python", new_genre= "Psychology", new_publisher="Bill Inc.")
+
+# Show all the titles
+print()
+tm.show()
+
 # Clear the title table
 tm.clear()
