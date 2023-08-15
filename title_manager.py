@@ -24,7 +24,14 @@ class title_manager:
             session.add(title)
             # Commit the change and update the database
             session.commit()
-
+    def update_title(self, name, new_name = None):
+        '''
+        Update a title in the database with given values.
+        :param name: the old book name of the title
+        :param new_name: the new book name of the title
+        :return: None
+        '''
+        update_statement = ""
     def show(self):
         '''
         Print out the Title table.
