@@ -24,14 +24,28 @@ class title_manager:
             session.add(title)
             # Commit the change and update the database
             session.commit()
-    def update_title(self, name, new_name = None):
+    def update_title(self, name, new_name = None, new_publisher = None, new_genre = None, new_quantity = None):
         '''
-        Update a title in the database with given values.
-        :param name: the old book name of the title
+        Update a title with a given book name in the database with given values.
+        :param name: the book name of the title
         :param new_name: the new book name of the title
+        :param new_publisher: the new publisher of the title
+        :param new_genre: the new genre of the title
+        :param new_quantity: the new quantity of the title
         :return: None
         '''
-        update_statement = ""
+
+        # A dictionary that indicates what values need to be changed
+        update_dict = {"name": new_name, "publisher": new_publisher, "genre": new_genre, "quantity": new_quantity}
+        # Filter out those items which value is the default - None, as they are not assigned to be changed
+        update_dict = {k: v for k, v in update_dict.items() if v is not None}
+
+        with Session(self.engine) as session:
+            # Select the title entry with the name passed into this method,
+            # and update the entry with the new values
+            session.query(Title).filter(Title.name == name).update(update_dict)
+            # Commit the change and update the database
+            session.commit()
     def show(self):
         '''
         Print out the Title table.
