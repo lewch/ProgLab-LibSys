@@ -1,4 +1,5 @@
 from title import *
+import copy
 class title_manager:
     '''
     A class for title manager which manages the titles store in a database.
@@ -19,9 +20,11 @@ class title_manager:
         '''
         # Create a table for Title instances
         Title.__table__.create(self.engine, checkfirst=True)
+        # Create a deep copy of the title so the origin will not be bound to the session
+        title_copy = copy.deepcopy(title)
         with Session(self.engine) as session:
             # Add a title to the Title table
-            session.add(title)
+            session.add(title_copy)
             # Commit the change and update the database
             session.commit()
     def update_title(self, name, new_name = None, new_publisher = None, new_genre = None, new_quantity = None):
@@ -46,6 +49,20 @@ class title_manager:
             session.query(Title).filter(Title.name == name).update(update_dict)
             # Commit the change and update the database
             session.commit()
+
+    def remove_title(self, name):
+        '''
+        Remove an entry with the given name in the Title Table.
+        :param name: name of the books
+        :return: None
+        '''
+        with Session(self.engine) as session:
+            # Select the title entry with the name passed into this method,
+            # and delete the entry
+            session.query(Title).filter(Title.name == name).delete()
+            # Commit the change and update the database
+            session.commit()
+
     def show(self):
         '''
         Print out the Title table.
