@@ -65,5 +65,6 @@ class UserInterface:
                    Option("Add a title", self.user_interaction.add_title),
                    Option("Find a title", self.user_interaction.find_title),
                    Option("Amend a title", self.user_interaction.amend_title),
+                   Option("Remove a title", self.user_interaction.remove_title),
                    Option("Go back")]
         self.screen("Admin", options)

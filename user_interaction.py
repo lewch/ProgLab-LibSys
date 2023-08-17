@@ -101,19 +101,47 @@ class UserInteraction:
             print()
             # If the input is an empty string, assign None as the value
             new_name = input("Please enter the new name of the books or press Enter to skip the change.\n") or None
-            new_publisher = input("Please enter the new publisher of the books or press Enter to skip the change.\n") or None
+            new_publisher = input(
+                "Please enter the new publisher of the books or press Enter to skip the change.\n") or None
             new_genre = input("Please enter the new genre of the books or press Enter to skip the change.\n") or None
-            new_quantity = input("Please enter the new quantity of the books or press Enter to skip the change.\n") or None
+            new_quantity = input(
+                "Please enter the new quantity of the books or press Enter to skip the change.\n") or None
             if new_quantity is not None:
                 new_quantity = int(new_quantity)
             # Update the title in the database
-            self.title_manager.update_title(title.name, new_name = new_name, new_publisher = new_publisher, new_genre=new_genre, new_quantity=new_quantity)
+            self.title_manager.update_title(title.name, new_name=new_name, new_publisher=new_publisher,
+                                            new_genre=new_genre, new_quantity=new_quantity)
 
             # Show the information of the amended title
             new_title = self.title_manager.get_title(title.name if new_name is None else new_name)
             print("\nYour title now has been changed to:\n" + str(new_title))
 
         self.go_back()
+
+    def remove_title(self):
+        '''
+        Remove a title from the library database with a book name that the user inputs.
+        :return: None
+        '''
+        os.system("clear")
+
+        name = input("What is the book name of the title you want to remove?\n")
+
+        # Get the title with the input book name from the database
+        title = self.title_manager.get_title(name)
+
+        # Show an error message if not found.
+        if title is None:
+            print("Sorry, there is no book matches the name.")
+        # Remove the title if found.
+        else:
+            self.title_manager.remove_title(name)
+
+            # Show the information of the removed title
+            print("\nThe title below has been removed:\n" + str(title))
+
+        self.go_back()
+
     def go_back(self):
         '''
         A method that returns to the previous screen when any key is pressed.
