@@ -1,6 +1,6 @@
 from title import *
 import copy
-class title_manager:
+class TitleManager:
     '''
     A class for title manager which manages the titles store in a database.
     '''
@@ -11,6 +11,8 @@ class title_manager:
         :param path: A file path to the database
         '''
         self.engine = create_engine("sqlite:///" + path)
+        # Create a table for Title instances
+        Title.__table__.create(self.engine, checkfirst=True)
 
     def add_title(self,title):
         '''
@@ -18,8 +20,6 @@ class title_manager:
         :param title: A title to be added
         :return: None
         '''
-        # Create a table for Title instances
-        Title.__table__.create(self.engine, checkfirst=True)
         # Create a deep copy of the title so the origin will not be bound to the session
         title_copy = copy.deepcopy(title)
         with Session(self.engine) as session:
@@ -63,7 +63,7 @@ class title_manager:
             # Commit the change and update the database
             session.commit()
 
-    def show(self):
+    def show_titles(self):
         '''
         Print out the Title table.
         :return: None
@@ -71,13 +71,15 @@ class title_manager:
         # Set the width of each column
         row_formatter = "{:<30} {:<20} {:<10} {:<4}"
         with Session(self.engine) as session:
+            # Print the caption
+            print("Table of titles")
             # Print the header
             print(row_formatter.format("Name", "Publisher", "Genre", "Quantity"))
             # Print the entities
             for title in session.query(Title):
                 print(row_formatter.format(title.name, title.publisher, title.genre, title.quantity))
 
-    def clear(self):
+    def clear_titles(self):
         '''
         Delete the entire table of titles
         :return:None
