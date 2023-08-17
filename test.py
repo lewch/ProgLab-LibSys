@@ -17,7 +17,12 @@ tm.show_titles()
 
 # Amend a title
 tm.update_title("Good Morning", new_publisher="Bill Inc.")
+# tm.update_title("Good Morning")
 tm.update_title("Hello Python", new_genre= "Psychology", new_publisher="Bill Inc.")
+
+# Get a title
+t3 = tm.get_title("Good Morning")
+print(t3)
 
 # Remove a title
 tm.remove_title("Good Morning")
@@ -28,5 +33,3 @@ tm.show_titles()
 
 # Clear the title table
 tm.clear_titles()
-
-os.system('clear')

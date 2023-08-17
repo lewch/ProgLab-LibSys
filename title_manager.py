@@ -27,6 +27,16 @@ class TitleManager:
             session.add(title_copy)
             # Commit the change and update the database
             session.commit()
+
+    def get_title(self, name):
+        '''
+        Get a copyt of a title with a given book name in the database.
+        :param name: the book name of the title
+        :return: a copy of the title stored in the database or None if not found
+        '''
+        with Session(self.engine) as session:
+            title = session.get(Title, name)
+            return copy.deepcopy(title)
     def update_title(self, name, new_name = None, new_publisher = None, new_genre = None, new_quantity = None):
         '''
         Update a title with a given book name in the database with given values.
@@ -43,12 +53,17 @@ class TitleManager:
         # Filter out those items which value is the default - None, as they are not assigned to be changed
         update_dict = {k: v for k, v in update_dict.items() if v is not None}
 
-        with Session(self.engine) as session:
-            # Select the title entry with the name passed into this method,
-            # and update the entry with the new values
-            session.query(Title).filter(Title.name == name).update(update_dict)
-            # Commit the change and update the database
-            session.commit()
+        # When update dict is not empty as session.update() cannot take an empty dictionary
+        if update_dict:
+            with Session(self.engine) as session:
+                # Select the title entry with the name passed into this method,
+                # and update the entry with the new values
+                session.query(Title).filter(Title.name == name).update(update_dict)
+                # Commit the change and update the database
+                session.commit()
+        # When update dict is empty, do nothing
+        else:
+            return
 
     def remove_title(self, name):
         '''
