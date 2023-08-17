@@ -63,5 +63,7 @@ class UserInterface:
         '''
         options = [Option("Show all titles", self.user_interaction.show_titles),
                    Option("Add a title", self.user_interaction.add_title),
+                   Option("Find a title", self.user_interaction.find_title),
+                   Option("Amend a title", self.user_interaction.amend_title),
                    Option("Go back")]
         self.screen("Admin", options)
