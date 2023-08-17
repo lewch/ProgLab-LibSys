@@ -8,7 +8,7 @@ class TitleManager:
     A class for title manager which manages the titles stored in a database.
     """
 
-    def __init__(self, path):
+    def __init__(self, path=":memory:"):
         """
         # Connect to the database at the given path
         :param path: A file path to the database

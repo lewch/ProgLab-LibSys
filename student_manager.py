@@ -10,7 +10,7 @@ class StudentManager:
     A class for student manager which manages the student stored in a database.
     """
 
-    def __init__(self, path):
+    def __init__(self, path=":memory:"):
         """
         # Connect to the database at the given path
         :param path: A file path to the database
