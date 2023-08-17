@@ -1,18 +1,12 @@
 from sqlalchemy import *
-from sqlalchemy.orm import *
 
-
-class Base(DeclarativeBase):
-    '''
-    A declarative base class for the use of storing custom objects in a database.
-    '''
-    pass
+from base import Base
 
 
 class Title(Base):
-    '''
+    """
     A class for titles where instances can be stored as entities in the 'Title' table of a SQLAlchemy database.
-    '''
+    """
 
     # Metadata for a library database
     # Name of the table
@@ -26,22 +20,23 @@ class Title(Base):
     # Column in the table with column name 'quantity'
     quantity = Column(Integer)
 
-    def __init__(self, name, publisher, genre, quantity):
-        '''
+    def __init__(self, name, publisher, genre, quantity, **kw: Any):
+        """
         :param name: names of the books
         :param publisher: publisher of the books
         :param genre: genre of the books
         :param quantity: number of the books
-        '''
+        """
+        super().__init__(**kw)
         self.name = name
         self.publisher = publisher
         self.genre = genre
         self.quantity = quantity
 
     def __repr__(self):
-        '''
+        """
         :return: a string representing the title
-        '''
+        """
         return f'Title(name: {self.name}, ' \
                f'publisher: {self.publisher}, ' \
                f'genre: {self.genre}, ' \

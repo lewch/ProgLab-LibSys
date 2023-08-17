@@ -4,26 +4,29 @@ from option import *
 
 
 class UserInterface:
-    '''
+    """
     A class that draws user interfaces and provide them to users to interact with the system.
-    '''
+    """
 
-    def __init__(self, title_manager):
-        '''
+    def __init__(self, title_manager, student_manager):
+        """
         A constructor of a user interface object
-        :param title_manager: The title_manager which manages titles stored in the database
-        '''
+        :param title_manager: The title manager which manages titles stored in the database
+        :param student_manager: The student manager which manages students stored in the database
+        """
         # The user interaction instance which controls the user interactions
-        self.user_interaction = UserInteraction(title_manager)
+        self.user_interaction = UserInteraction(title_manager, student_manager)
 
-    def screen(self, header, options):
-        '''
-        A template for all screens that has a screen header and lists all the options which can be chosen for interactions.
-        Please note that the last option is reserved for returning to the previous screen or exiting the programme.
+    @staticmethod
+    def screen(header, options):
+        """
+        A template for all screens that has a screen header and lists all the options which can be chosen for
+        interactions. Please note that the last option is reserved for returning to the previous screen or exiting
+        the programme.
         :param header: the name of the screen, such as "Welcome Screen"
         :param options: a list of options that will be displayed under the header
         :return: None
-        '''
+        """
         while True:
             # Clear the console and make an empty screen
             os.system("clear")
@@ -48,23 +51,32 @@ class UserInterface:
                 continue
 
     def main_screen(self):
-        '''
+        """
         A welcome screen or main screen of the system.
         :return: None
-        '''
+        """
         options = [Option("Admin Login", self.admin_screen),
+                   Option("Student Login", self.student_screen),
                    Option("Exit", exit)]
-        self.screen("Library Management System", options)
+        UserInterface.screen("Library Management System", options)
 
     def admin_screen(self):
-        '''
+        """
         An admin screen for librarians to manage titles stored in the library.
-        :return:
-        '''
+        :return: None
+        """
         options = [Option("Show all titles", self.user_interaction.show_titles),
                    Option("Add a title", self.user_interaction.add_title),
                    Option("Find a title", self.user_interaction.find_title),
                    Option("Amend a title", self.user_interaction.amend_title),
                    Option("Remove a title", self.user_interaction.remove_title),
                    Option("Go back")]
-        self.screen("Admin", options)
+        UserInterface.screen("Admin", options)
+
+    def student_screen(self):
+        options = [Option("Registration", self.user_interaction.add_student),
+                   Option("Show all students", self.user_interaction.show_students),
+                   Option("Show all titles", self.user_interaction.show_titles),
+                   Option("Borrow a book", self.user_interaction.borrow_book),
+                   Option("Go back")]
+        UserInterface.screen("Student", options)
