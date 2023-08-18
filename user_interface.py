@@ -1,6 +1,7 @@
 import os
+
+from option import Option
 from user_interaction import UserInteraction
-from option import *
 
 
 class UserInterface:
@@ -20,8 +21,9 @@ class UserInterface:
     @staticmethod
     def screen(header, options):
         """
-        A template for all screens that has a screen header and lists all the options which can be chosen for
-        interactions. Please note that the last option is reserved for returning to the previous screen or exiting
+        A template for all screens that has a screen header and lists all the options
+        which can be chosen for interactions. Please note that the last option is
+        reserved for returning to the previous screen or exiting
         the programme.
         :param header: the name of the screen, such as "Welcome Screen"
         :param options: a list of options that will be displayed under the header
@@ -34,8 +36,8 @@ class UserInterface:
             print("*****" + header + "*****")
 
             # Print the descriptions of option in order
-            for i in range(0, len(options)):
-                print(str(i) + ". " + options[i].description)
+            for i, option in enumerate(options):
+                print(str(i) + ". " + option.description)
             # Print the bottom line
             print("*****" + "*" * len(header) + "*****")
 
@@ -45,19 +47,21 @@ class UserInterface:
             if number == len(options) - 1:
                 return
             # Otherwise, execute the function according to the option
-            else:
-                option = options[number]
-                option.execute()
-                continue
+            option = options[number]
+            option.execute()
+            continue
 
     def main_screen(self):
         """
         A welcome screen or main screen of the system.
         :return: None
         """
-        options = [Option("Admin Login", self.admin_screen),
-                   Option("Student Login", self.student_screen),
-                   Option("Exit", exit)]
+        options = [Option(description="Admin Login", \
+                          func=self.admin_screen),
+                   Option(description="Student Login", \
+                          func=self.student_screen),
+                   Option(description="Exit", \
+                          func=exit)]
         UserInterface.screen("Library Management System", options)
 
     def admin_screen(self):
@@ -65,18 +69,27 @@ class UserInterface:
         An admin screen for librarians to manage titles stored in the library.
         :return: None
         """
-        options = [Option("Show all titles", self.user_interaction.show_titles),
-                   Option("Add a title", self.user_interaction.add_title),
-                   Option("Find a title", self.user_interaction.find_title),
-                   Option("Amend a title", self.user_interaction.amend_title),
-                   Option("Remove a title", self.user_interaction.remove_title),
-                   Option("Go back")]
+        options = [Option(description="Show all titles", \
+                          func=self.user_interaction.show_titles),
+                   Option(description="Add a title", \
+                          func=self.user_interaction.add_title),
+                   Option(description="Find a title", \
+                          func=self.user_interaction.find_title),
+                   Option(description="Amend a title", \
+                          func=self.user_interaction.amend_title),
+                   Option(description="Remove a title", \
+                          func=self.user_interaction.remove_title),
+                   Option(description="Go back")]
         UserInterface.screen("Admin", options)
 
     def student_screen(self):
-        options = [Option("Registration", self.user_interaction.add_student),
-                   Option("Show all students", self.user_interaction.show_students),
-                   Option("Show all titles", self.user_interaction.show_titles),
-                   Option("Borrow a book", self.user_interaction.borrow_book),
-                   Option("Go back")]
+        options = [Option(description="Registration", \
+                          func=self.user_interaction.add_student),
+                   Option(description="Show all students", \
+                          func=self.user_interaction.show_students),
+                   Option(description="Show all titles", \
+                          func=self.user_interaction.show_titles),
+                   Option(description="Borrow a book", \
+                          func=self.user_interaction.borrow_book),
+                   Option(description="Go back")]
         UserInterface.screen("Student", options)

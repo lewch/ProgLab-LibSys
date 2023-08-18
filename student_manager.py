@@ -1,8 +1,9 @@
 import copy
 
+from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
-from student import *
+from student import Student
 
 
 class StudentManager:
