@@ -33,3 +33,6 @@ class Student(Base):
         """
         return f'Student(id: {self.id}, ' \
                f'name: {self.name})'
+
+    def __eq__(self, other):
+         return True if self.id == other.id and self.name == other.name else False

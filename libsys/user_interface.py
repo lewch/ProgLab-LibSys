@@ -83,6 +83,10 @@ class UserInterface:
         UserInterface.screen("Admin", options)
 
     def student_screen(self):
+        """
+        A student screen for students to manage their information stored in the library.
+        :return: None
+        """
         options = [Option(description="Registration", \
                           func=self.user_interaction.add_student),
                    Option(description="Show all students", \

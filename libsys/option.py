@@ -20,7 +20,7 @@ class Option:
     def execute(self):
         """
         It runs the function of the option when the function is defined.
-        :return: None
+        :return: the return of the function
         """
         if self.func is not None:
-            self.func(*self.args, **self.kwargs)
+            return self.func(*self.args, **self.kwargs)
