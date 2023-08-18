@@ -1,6 +1,7 @@
-from sqlalchemy.orm import Session
-from sqlalchemy import create_engine
 import copy
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
 
 from title import Title
 
@@ -43,7 +44,8 @@ class TitleManager:
             title = session.get(Title, name)
             return copy.deepcopy(title)
 
-    def update_title(self, name, new_name=None, new_publisher=None, new_genre=None, new_quantity=None):
+    def update_title(self, name, new_name=None, new_publisher=None,
+                     new_genre=None, new_quantity=None):
         """
         Update a title with a given book name in the database with given values.
         :param name: the book name of the title
@@ -55,8 +57,10 @@ class TitleManager:
         """
 
         # A dictionary that indicates what values need to be changed
-        update_dict = {"name": new_name, "publisher": new_publisher, "genre": new_genre, "quantity": new_quantity}
-        # Filter out those items which value is the default - None, as they are not assigned to be changed
+        update_dict = {"name": new_name, "publisher": new_publisher, "genre": new_genre,
+                       "quantity": new_quantity}
+        # Filter out those items which value is the default - None,
+        # as they are not assigned to be changed.
         update_dict = {k: v for k, v in update_dict.items() if v is not None}
 
         # When update dict is not empty as session.update() cannot take an empty dictionary
@@ -98,7 +102,8 @@ class TitleManager:
             print(row_formatter.format("Name", "Publisher", "Genre", "Quantity"))
             # Print the entities
             for title in session.query(Title):
-                print(row_formatter.format(title.name, title.publisher, title.genre, title.quantity))
+                print(row_formatter.format(title.name, title.publisher,
+                                           title.genre, title.quantity))
 
     def clear_titles(self):
         """

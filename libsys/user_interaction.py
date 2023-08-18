@@ -104,16 +104,22 @@ class UserInteraction:
             # Ask the user what part of the title needs to change
             print()
             # If the input is an empty string, assign None as the value
-            new_name = input("Please enter the new name of the books or press Enter to skip the change.\n") or None
+            new_name = input("Please enter the new name of the books or \
+            press Enter to skip the change.\n") or None
             new_publisher = input(
-                "Please enter the new publisher of the books or press Enter to skip the change.\n") or None
-            new_genre = input("Please enter the new genre of the books or press Enter to skip the change.\n") or None
+                "Please enter the new publisher of the books or \
+                press Enter to skip the change.\n") or None
+            new_genre = input(
+                "Please enter the new genre of the books or \
+                press Enter to skip the change.\n") or None
             new_quantity = input(
-                "Please enter the new quantity of the books or press Enter to skip the change.\n") or None
+                "Please enter the new quantity of the books or \
+                press Enter to skip the change.\n") or None
             if new_quantity is not None:
                 new_quantity = int(new_quantity)
             # Update the title in the database
-            self.title_manager.update_title(title.name, new_name=new_name, new_publisher=new_publisher,
+            self.title_manager.update_title(title.name, new_name=new_name,
+                                            new_publisher=new_publisher,
                                             new_genre=new_genre, new_quantity=new_quantity)
 
             # Show the information of the amended title
