@@ -62,8 +62,9 @@ class StudentManager:
 
     def clear_students(self):
         """
-        Delete the entire table of students
+        Delete the entries in the student table
         :return:None
         """
-        # Use the drop method inherited from DeclarativeBase class to delete the table
-        Student.__table__.drop(self.engine)
+        with Session(self.engine) as session:
+            session.query(Student).delete()
+            session.commit()

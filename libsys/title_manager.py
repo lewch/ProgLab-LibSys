@@ -107,8 +107,9 @@ class TitleManager:
 
     def clear_titles(self):
         """
-        Delete the entire table of titles
+        Delete the entries in the title table
         :return:None
         """
-        # Use the drop method inherited from DeclarativeBase class to delete the table
-        Title.__table__.drop(self.engine)
+        with Session(self.engine) as session:
+            session.query(Title).delete()
+            session.commit()
