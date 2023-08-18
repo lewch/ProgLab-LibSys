@@ -1,4 +1,6 @@
-from sqlalchemy import *
+from sqlalchemy import Column
+from sqlalchemy import Integer
+from sqlalchemy import String
 
 from base import Base
 
@@ -16,7 +18,7 @@ class Student(Base):
     # Column in the table with column name 'publisher'
     name = Column(String)
 
-    def __init__(self, id, name, **kw: Any):
+    def __init__(self, id, name, **kw: Integer):
         """
         :param id: identification number of the student
         :param name: name of the student

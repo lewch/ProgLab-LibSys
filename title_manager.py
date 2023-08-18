@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Session
-from title import *
+from sqlalchemy import create_engine
 import copy
+
+from title import Title
 
 
 class TitleManager:

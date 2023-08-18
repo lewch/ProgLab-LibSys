@@ -3,7 +3,7 @@ class Option:
     A class for options shown on the screens.
     """
 
-    def __init__(self, description, func=None, *args, **kwargs):
+    def __init__(self, *args, description, func=None, **kwargs):
         """
         A constructor of option class.
         :param description: The description of the option shown on the screen,

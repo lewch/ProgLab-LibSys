@@ -1,6 +1,6 @@
-from user_interface import *
-from title_manager import *
-from student_manager import *
+from student_manager import StudentManager
+from title_manager import TitleManager
+from user_interface import UserInterface
 
 
 def main():

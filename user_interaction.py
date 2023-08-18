@@ -1,8 +1,8 @@
 import os
 
-from title_manager import *
-from student_manager import *
-from report import *
+from report import Report
+from student import Student
+from title import Title
 
 
 class UserInteraction:

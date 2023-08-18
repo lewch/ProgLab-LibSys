@@ -1,4 +1,4 @@
-from sqlalchemy import *
+from sqlalchemy import Column, String, Integer
 
 from base import Base
 
@@ -20,7 +20,7 @@ class Title(Base):
     # Column in the table with column name 'quantity'
     quantity = Column(Integer)
 
-    def __init__(self, name, publisher, genre, quantity, **kw: Any):
+    def __init__(self, name, publisher, genre, quantity, **kw: Integer):
         """
         :param name: names of the books
         :param publisher: publisher of the books
