@@ -5,7 +5,6 @@ from sqlalchemy.orm import Session
 
 from student import Student
 
-a = 1 + 2
 
 class StudentManager:
     """
