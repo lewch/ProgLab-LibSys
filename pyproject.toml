@@ -1,8 +1,17 @@
 # pyproject.toml
 
-# pyproject table for pytest configuration
+# pytest configuration
 [tool.pytest.ini_options]
 pythonpath = [
-#  The directory where source code locates
-  "libsys"
+    #  The directory where source code locates
+    "libsys"
+]
+
+## pylint configuration
+[tool.pylint]
+# Disable checkers
+disable = [
+    #  Disable Import-Error checker to skip the check of importing local modules
+    "import-error",
+    "unused-import"
 ]

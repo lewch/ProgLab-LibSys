@@ -4,6 +4,9 @@ from user_interface import UserInterface
 
 
 def main():
+    """
+    Run the main function of the System.
+    """
     # A title manager to manage titles in the database.
     title_manager = TitleManager("library.db")
     # A student manager to manage students in the database.

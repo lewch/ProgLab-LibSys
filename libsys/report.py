@@ -11,10 +11,10 @@ class Report:
     @staticmethod
     def borrowing(student, title):
         """
-        Generate a borrowing report.
-        :param student: the borrower
-        :param title: the title where one book is lent by the borrower
-        :return: None
+        Generate a report that records borrowing information.
+        :param student: The borrower
+        :param title: the title lent by the borrower
+        :return: None.
         """
         # Save the current date
         borrow_time = datetime.now()
@@ -28,7 +28,7 @@ class Report:
 
         print("Borrowing Report")
         print("*****Borrower Information*****")
-        print("Borrower ID: " + str(student.id))
+        print("Borrower ID: " + str(student.identifier))
         print("Borrower Name:" + student.name)
 
         print()

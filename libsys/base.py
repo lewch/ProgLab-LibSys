@@ -3,5 +3,5 @@ from sqlalchemy.orm import DeclarativeBase
 
 class Base(DeclarativeBase):
     """
-    A declarative base class for the use of storing custom objects in a database.
+    A declarative base class stores custom objects in a database.
     """

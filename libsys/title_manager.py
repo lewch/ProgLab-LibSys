@@ -6,15 +6,16 @@ from sqlalchemy.orm import Session
 from title import Title
 
 
+# noinspection GrazieInspection
 class TitleManager:
     """
-    A class for title manager which manages the titles stored in a database.
+    A class for title manager, which manages the titles stored in a database.
     """
 
     def __init__(self, path=":memory:"):
         """
-        # Connect to the database at the given path
-        :param path: A file path to the database
+        Connect to the database at the given path.
+        :param path: A file path to the database.
         """
         self.engine = create_engine("sqlite:///" + path)
         # Create a table for Title instances
@@ -24,9 +25,9 @@ class TitleManager:
         """
         Add a title to the table of Title instances in the library database.
         :param title: A title to be added
-        :return: None
+        :return: None.
         """
-        # Create a deep copy of the title so the origin will not be bound to the session
+        # Create a deep copy of the title, so the origin will not be bound to the session.
         title_copy = copy.deepcopy(title)
         with Session(self.engine) as session:
             # Add a title to the Title table
@@ -37,33 +38,35 @@ class TitleManager:
     def get_title(self, name):
         """
         Get a copy of a title with a given book name in the database.
-        :param name: the book name of the title
-        :return: a copy of the title stored in the database or None if not found
+        :param name: The book name of the title
+        :return: a copy of the title stored in the database or None if not found.
         """
         with Session(self.engine) as session:
             title = session.get(Title, name)
             return copy.deepcopy(title)
 
+    # noinspection GrazieInspection
     def update_title(self, name, new_name=None, new_publisher=None,
                      new_genre=None, new_quantity=None):
+        # noinspection GrazieInspection
         """
-        Update a title with a given book name in the database with given values.
-        :param name: the book name of the title
-        :param new_name: the new book name of the title
-        :param new_publisher: the new publisher of the title
-        :param new_genre: the new genre of the title
-        :param new_quantity: the new quantity of the title
-        :return: None
-        """
+                Update a title with a given book name in the database with given values.
+                :param name: The book name of the title
+                :param new_name: the new book name of the title
+                :param new_publisher: the new publisher of the title
+                :param new_genre: the new genre of the title
+                :param new_quantity: the new quantity of the title
+                :return: None.
+                """
 
         # A dictionary that indicates what values need to be changed
         update_dict = {"name": new_name, "publisher": new_publisher, "genre": new_genre,
                        "quantity": new_quantity}
-        # Filter out those items which value is the default - None,
-        # as they are not assigned to be changed.
+        # Filter out those items whose value is None by default,
+        # and do not change the corresponding values.
         update_dict = {k: v for k, v in update_dict.items() if v is not None}
 
-        # When update dict is not empty as session.update() cannot take an empty dictionary
+        # When update dict is not empty as session.update() cannot take an empty dictionary.
         if update_dict:
             with Session(self.engine) as session:
                 # Select the title entry with the name passed into this method,

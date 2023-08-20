@@ -8,13 +8,13 @@ from student import Student
 
 class StudentManager:
     """
-    A class for student manager which manages the student stored in a database.
+    A class for student manager, which manages the student stored in a database.
     """
 
     def __init__(self, path=":memory:"):
         """
-        # Connect to the database at the given path
-        :param path: A file path to the database
+        Connect to the database at the given path.
+        :param path: A file path to the database.
         """
         self.engine = create_engine("sqlite:///" + path)
         # Create a table for Student instances
@@ -23,10 +23,10 @@ class StudentManager:
     def register_student(self, student):
         """
         Add a student to the table of Student instances in the library database.
-        :param student: A student to be added
-        :return: None
+        :param student: The student to be added.
+        :return: None.
         """
-        # Create a deep copy of the student so the origin will not be bound to the session
+        # Create a deep copy of the student, so the origin will not be bound to the session.
         student_copy = copy.deepcopy(student)
         with Session(self.engine) as session:
             # Add a student to the Student table
@@ -34,14 +34,14 @@ class StudentManager:
             # Commit the change and update the database
             session.commit()
 
-    def get_student(self, id):
+    def get_student(self, identifier):
         """
-        Get a copy of a student with a given id in the database.
-        :param id: the name of the student
-        :return: a copy of the student stored in the database or None if not found
+        Get a copy of a student with a given identifier in the database.
+        :param identifier: The name of the student
+        :return: a copy of the student stored in the database or None if not found.
         """
         with Session(self.engine) as session:
-            student = session.get(Student, id)
+            student = session.get(Student, identifier)
             return copy.deepcopy(student)
 
     def show_students(self):
@@ -58,7 +58,7 @@ class StudentManager:
             print(row_formatter.format("ID", "Name"))
             # Print the entities
             for student in session.query(Student):
-                print(row_formatter.format(student.id, student.name))
+                print(row_formatter.format(student.identifier, student.name))
 
     def clear_students(self):
         """
