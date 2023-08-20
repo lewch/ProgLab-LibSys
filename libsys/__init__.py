@@ -1,6 +1,7 @@
 # noinspection PyUnresolvedReferences
-# noinspection PyUnresolvedReferences
 from base import Base
+# noinspection PyUnresolvedReferences
+from option import Option
 # noinspection PyUnresolvedReferences
 from report import Report
 # noinspection PyUnresolvedReferences
